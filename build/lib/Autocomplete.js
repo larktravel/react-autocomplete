@@ -19,7 +19,8 @@ var Autocomplete = React.createClass({
     renderItem: React.PropTypes.func.isRequired,
     menuStyle: React.PropTypes.object,
     inputProps: React.PropTypes.object,
-    labelText: React.PropTypes.string
+    labelText: React.PropTypes.string,
+    currentlySelectedAirport: React.PropTypes.object
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -280,6 +281,7 @@ var Autocomplete = React.createClass({
   handleInputBlur: function handleInputBlur() {
     if (this._ignoreBlur) return;
     this.setState({
+      value: this.props.currentlySelectedAirport.get('name'),
       isOpen: false,
       highlightedIndex: null
     });
@@ -287,11 +289,10 @@ var Autocomplete = React.createClass({
 
   handleInputFocus: function handleInputFocus() {
     if (this._ignoreBlur) return;
-    this.setState({ isOpen: true });
+    this.refs.input.select();
   },
 
   handleInputClick: function handleInputClick() {
-    if (this.state.isOpen === false) this.setState({ isOpen: true });
   },
 
   render: function render() {
@@ -314,7 +315,7 @@ var Autocomplete = React.createClass({
       ),
       React.createElement('input', _extends({}, this.props.inputProps, {
         role: 'combobox',
-        'aria-autocomplete': 'both',
+        'aria-autocomplete': 'none',
         ref: 'input',
         onFocus: this.handleInputFocus,
         onBlur: this.handleInputBlur,
