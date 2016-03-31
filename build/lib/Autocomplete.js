@@ -20,7 +20,7 @@ var Autocomplete = React.createClass({
     menuStyle: React.PropTypes.object,
     inputProps: React.PropTypes.object,
     labelText: React.PropTypes.string,
-    currentlySelectedAirport: React.PropTypes.object
+    currentlySelectedAirport: React.PropTypes.string
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -281,7 +281,7 @@ var Autocomplete = React.createClass({
   handleInputBlur: function handleInputBlur() {
     if (this._ignoreBlur) return;
     this.setState({
-      value: this.props.currentlySelectedAirport.get('name'),
+      value: this.props.currentlySelectedAirport,
       isOpen: false,
       highlightedIndex: null
     });
